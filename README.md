@@ -1,4 +1,4 @@
-#lobj
+# lobj
 
 ## Logged Object
 
@@ -22,7 +22,7 @@ If your app was crashed, the json file will contain the old data, from the last 
 
 That's it.
 
-###Usage
+### Usage
 
 To open the db, create a directory somewhere and pass it a s first parameter to `open()`
 
@@ -116,16 +116,16 @@ A similar option is to use the `use` function:
 
 Note that for arrays you can use negative indexes in paths. Here `-1` simple means *the last one*.
 
-###Reference
+### Reference
 
-####Module functions
+#### Module functions
 
 - open(path, options)
 	Opens or initializes the database and uses the directory located at `path` for working files.
 	Options are
 	- SaveOnExit: defaults to true
 
-####Instance functions
+#### Instance functions
 
 - cd(...path)
 	Enters the `path`, returns the selected object.
