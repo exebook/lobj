@@ -50,7 +50,7 @@ await db.save()
 await db.close()
 ```
 
-You do not really need to call any of those normally. Lobj library installs a hook on process exit, in that hook the db will be saved and closed for you. If the app crashes instead, the database will be locked. The lock is a file in a database directory named `lock`. If your app crashed, you will not be able to restart it until you manually delete the `lock` file. The lock file protects you from running multiple instances of the app or running another app that accesses the same db while the first one still running. You still can call `save` repeatedly every few hours/days/months depending on your data and server configuration.
+You do not really need to call any of those normally. Lobj library installs a hook on process exit, in that hook the db will be saved and closed for you. If the app crashes instead, the database will be locked. The lock is a file in a database directory named `lock`. If your app crashed, you will not be able to restart it until you manually delete the `lock` file. Calling `close()` will delete the lock file. The lock file protects you from running multiple instances of the app or running another app that accesses the same db while the first one still running. You still can call `save` repeatedly every few hours/days/months depending on your data and server configuration.
 
 Let's create a web forum backend database, we will have a schema like this:
 
@@ -92,6 +92,13 @@ await db.set('board', 'general', 'post', [])
 As you can see, all arguments except the last one are used as a path to data. The last argument is the new value.
 
 The code `set('a', 'b', 'c', 'd')` is equivalent to `a.b.c = d`, the difference is that the data is persistently saved immediately when you use `set()`. 
+
+The difference between `add()` and `set()` is that `set()` sets a named property or an indexed element, but `add()` can only add a new element to an array.
+
+```js
+await db.add('a', 'b', 'c') ---> a.b.push('c')
+await db.set('a', 'b', 'c') ---> a.b = c
+```
 
 *Never modify the underlying data directly!* Always use `set()` and `add()` instead.
 
