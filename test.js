@@ -16,10 +16,7 @@ async function main() {
 				flag: 1
 			}
 		})
-//db.del('user', 'nobody', 'empty')
-//db.cd('user', 'nobody', 'empty', x=>{})
-//db.add('user', 'nobody', 'empty')
-//db.set('user', 'nobody', 'empty', 'nothing')
+		test_errors()
 		if (db.board.general == undefined) {
 			await db.set('board', 'general', { hidden: false, admin: 'u1' })
 		}
@@ -87,6 +84,13 @@ async function main() {
 	}
 	catch (em) {
 		console.log('oops', em)
+	}
+	function test_errors() {
+		//uncomment these lines one-by-one to see if the error messages are sane.
+		//db.del('user', 'nobody', 'empty')
+		//db.cd('user', 'nobody', 'empty', x=>{})
+		//db.add('user', 'nobody', 'empty')
+		//db.set('user', 'nobody', 'empty', 'nothing')
 	}
 }
 
