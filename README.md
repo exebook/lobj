@@ -120,7 +120,8 @@ Note that for arrays you can use negative indexes in paths. Here `-1` simply mea
 
 #### Module functions
 
-- open(path, options)
+- `open(path, options)`
+
 	Opens or initializes the database and uses the directory located at `path` for working files.
 	Options are
 	- SaveOnExit: defaults to true
@@ -128,38 +129,49 @@ Note that for arrays you can use negative indexes in paths. Here `-1` simply mea
 #### Instance functions
 
 - `cd(...path)`
+
 	Enters the `path`, returns the selected object.
 
 - `use(...path, callback)`
+
 	Enters the `path, passes the selected object to the callback, restores the cur-path before returns.
 
 - `cur()`
+
 	Returns currently selected object.
 
 - `get(...path)`
+
 	async: no
 	Returns an object located at `path`
 	
 - `set(...path, key, value)`
+
 	Sets a `key` to a `value` in the object located at `path`
 
 - `del(...path, key)`
+
 	Deletes a `key` from an object located at `path`
 
 - `add(...path, value)`
+
 	Adds `value` to an array located at `path`, if the object at `path` is not an array, it will throw an error.
 
 - `save()`
+
 	Serializes and saves all current data, deletes existing log file if save worked successfully.
 
 - `burn()`
+
 	async: no
 	Deletes all keys from the root object. Does not save.
 
 - `close()`
+
 	Closes the database, deletes the lock file.
 
 - `schema(template)`
+
 	async: no
 	Recursively copies elements from the template into a root object if they do not exist yet.
 
