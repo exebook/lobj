@@ -1,3 +1,7 @@
+/*
+	TODO: store pid in lock, and erase the lock if the starter process is sure dead
+*/
+
 var fs = require('fs')
 require('./throw-prev')
 

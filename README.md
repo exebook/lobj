@@ -20,6 +20,8 @@ from the log file.
 
 If your app was crashed, the json file will contain the old data, from the last call to `save`, and the log file will contain all the recent data that was modified after the save but before the crash.
 
+May be useful for propotypes, experiments, pet projects and anywhere where you quickly need a safe persistent fast storage and do not want to install/configure database software/accounts/connections/machines.
+
 That's it.
 
 ### Usage
