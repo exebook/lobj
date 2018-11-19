@@ -24,7 +24,7 @@ That's it.
 
 ### Usage
 
-To open the db, create a directory somewhere and pass it a s first parameter to `open()`
+To open the db, create a directory somewhere and pass it as a first parameter to `open()`
 
 ```js
 //example.js
@@ -44,25 +44,25 @@ node example.js
 
 To explicitly save and close your database just call:
 ```js
-	await db.save()
-	await db.close()
+await db.save()
+await db.close()
 ```
 
-Lobj library installs a hook on process exit, in that hook the db will be saved and closed for you. If the app crashes instead, the database will be locked. The lock is a file in a database directory named `lock`. If your app crashed, you will not be able to restart it until you manually delete the `lock` file. The lock file protects you from running multiple instances of the app or running another app that accesses the same db while the first one still running.
+You do not really need to call any of those normally. Lobj library installs a hook on process exit, in that hook the db will be saved and closed for you. If the app crashes instead, the database will be locked. The lock is a file in a database directory named `lock`. If your app crashed, you will not be able to restart it until you manually delete the `lock` file. The lock file protects you from running multiple instances of the app or running another app that accesses the same db while the first one still running. You still can call `save` repeatedly every few hours/days/months depending on your data and server configuration.
 
 Let's create a web forum backend database, we will have a schema like this:
 
 ```js
-	db.schema({
-		user: [],
-		board: {},
-	})
+db.schema({
+	user: [],
+	board: {},
+})
 ```
 
 Now let's add a user:
 
 ```js
-	await db.add('user', { name: 'john', email: 'john@example.com', password: '11111111' })
+await db.add('user', { name: 'john', email: 'john@example.com', password: '11111111' })
 ```
 
 Using `schema()` function is not necessary, you can instead use `set` and `add` to initialize your db.
@@ -70,21 +70,21 @@ Using `schema()` function is not necessary, you can instead use `set` and `add` 
 For example if you did not want to use `schema()`, you could create the `board` like this:
 
 ```js
-	if (db.board == undefined) await db.set('board', {})
+if (db.board == undefined) await db.set('board', {})
 ```
 
 To read from the db, you just access it as a regular JavaScript object:
 
 ```js
-	console.log(db.user.john.email)
+console.log(db.user.john.email)
 ```
 
 To change the existing data use `set()`
 
 ```js
-	await db.set('board', 'general', { title: 'General discussion' })
-	await db.set('board', 'general', 'title', 'Random talk')
-	await db.set('board', 'general', 'post', [])
+await db.set('board', 'general', { title: 'General discussion' })
+await db.set('board', 'general', 'title', 'Random talk')
+await db.set('board', 'general', 'post', [])
 ```
 
 As you can see, all arguments except the last one are used as a path to data. The last argument is the new value.
@@ -96,8 +96,8 @@ The code `set('a', 'b', 'c', 'd')` is equivalent to `a.b.c = d`, the difference 
 You can also use `cd()` to to avoid typing long paths:
 
 ```js
-	await db.cd('board', 'general', 'post')
-	await db.add({user: 'john', title: 'my first post', text: 'hello there!'})
+await db.cd('board', 'general', 'post')
+await db.add({user: 'john', title: 'my first post', text: 'hello there!'})
 ```
 
 There is no such thing as `cd('..')`, sorry, but this is simply because JavaScript objects do not contain the uplink.
@@ -107,11 +107,11 @@ Using `cd()` without arguments will set current path back to the root object.
 A similar option is to use the `use` function:
 
 ```js
-	await db.use('board', 'general', 'post', -1, post => {
-		console.log(post.user)
-		console.log(post.title)
-		console.log(post.text)
-	})
+await db.use('board', 'general', 'post', -1, post => {
+	console.log(post.user)
+	console.log(post.title)
+	console.log(post.text)
+})
 ```
 
 Note that for arrays you can use negative indexes in paths. Here `-1` simple means *the last one*.
