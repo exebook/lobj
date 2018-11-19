@@ -83,7 +83,7 @@ To change the existing data use `set()`
 
 ```js
 await db.set('board', 'general', { title: 'General discussion' })
-await db.set('board', 'general', 'title', 'Random talk')
+await db.set('board', 'general', 'title', 'Random talk') //replaces previous title
 await db.set('board', 'general', 'post', [])
 ```
 
@@ -114,7 +114,7 @@ await db.use('board', 'general', 'post', -1, post => {
 })
 ```
 
-Note that for arrays you can use negative indexes in paths. Here `-1` simple means *the last one*.
+Note that for arrays you can use negative indexes in paths. Here `-1` simply means *the last one*.
 
 ### Reference
 
@@ -127,39 +127,39 @@ Note that for arrays you can use negative indexes in paths. Here `-1` simple mea
 
 #### Instance functions
 
-- cd(...path)
+- `cd(...path)`
 	Enters the `path`, returns the selected object.
 
-- use(...path, callback)
+- `use(...path, callback)`
 	Enters the `path, passes the selected object to the callback, restores the cur-path before returns.
 
-- cur()
+- `cur()`
 	Returns currently selected object.
 
-- get(...path)
+- `get(...path)`
 	async: no
 	Returns an object located at `path`
 	
-- set(...path, key, value)
+- `set(...path, key, value)`
 	Sets a `key` to a `value` in the object located at `path`
 
-- del(...path, key)
+- `del(...path, key)`
 	Deletes a `key` from an object located at `path`
 
-- add(...path, value)
+- `add(...path, value)`
 	Adds `value` to an array located at `path`, if the object at `path` is not an array, it will throw an error.
 
-- save()
+- `save()`
 	Serializes and saves all current data, deletes existing log file if save worked successfully.
 
-- burn()
+- `burn()`
 	async: no
 	Deletes all keys from the root object. Does not save.
 
-- close()
+- `close()`
 	Closes the database, deletes the lock file.
 
-- schema(template)
+- `schema(template)`
 	async: no
 	Recursively copies elements from the template into a root object if they do not exist yet.
 
